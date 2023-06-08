@@ -58,10 +58,10 @@ public class LoginActivity extends AppCompatActivity {
     private void login(String username, String password) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.login("dirumahaja", username, password);
-        call.enqueue(new Callback<ValueNoData>() {
+        Call<ValueData> call = api.login( username, password);
+        call.enqueue(new Callback<ValueData>() {
             @Override
-            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
                 if (response.code() == 200) {
                     binding.progressBar.setVisibility(View.GONE);
                     int success = response.body().getSuccess();
@@ -83,11 +83,13 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ValueNoData> call, Throwable t) {
+            public void onFailure(Call<ValueData> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 System.out.println("Retrofit Error : " + t.getMessage());
                 Toast.makeText(LoginActivity.this, "Retrofit Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
+
         });
 
 

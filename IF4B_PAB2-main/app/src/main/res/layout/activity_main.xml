@@ -10,7 +10,9 @@
         android:id="@+id/rv_post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/post_item"
+        tools:itemCount="3"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

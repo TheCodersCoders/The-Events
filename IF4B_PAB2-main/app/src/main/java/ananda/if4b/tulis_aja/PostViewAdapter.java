@@ -1,11 +1,16 @@
 package ananda.if4b.tulis_aja;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +20,7 @@ import ananda.if4b.tulis_aja.databinding.PostItemBinding;
 public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHolder> {
     private List<Post> data = new ArrayList();
     private OnItemLongClickListener onItemLongClickListener;
+    private Context context;
 
     public void setData (List<Post> data) {
         this.data = data;
@@ -28,16 +34,22 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
     @NonNull
     @Override
     public PostViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View varView = LayoutInflater.from(context).inflate(R.layout.post_item, parent, false);
         return new ViewHolder(PostItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull PostViewAdapter.ViewHolder holder, int position) {
         int pos = holder.getAdapterPosition();
+
         Post post = data.get(pos);
-        holder.postItemBinding.tvUsername.setText(post.getUsername());
         holder.postItemBinding.tvContent.setText(post.getContent());
-        holder.postItemBinding.tvCreatedDate.setText(post.getCreated_date());
+        holder.postItemBinding.tvJudul.setText(post.getJudul());
+        holder.postItemBinding.tvLokasi.setText(post.getLokasi());
+        String imageUrl = "https://images.pexels.com/photos/14131911/pexels-photo-14131911.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load";
+        ImageView ivfoto = (ImageView) findView
+        Picasso.with(context).load(EditText.getText().toString).into(imageView);
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

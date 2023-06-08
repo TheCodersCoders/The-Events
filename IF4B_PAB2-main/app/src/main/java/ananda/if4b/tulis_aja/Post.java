@@ -10,6 +10,9 @@ public class Post implements Parcelable {
     private String created_date;
     private String modified_date;
     private String username;
+    private String lokasi;
+    private String judul;
+    private String foto;
 
     protected Post(Parcel in) {
         id = in.readString();
@@ -18,6 +21,9 @@ public class Post implements Parcelable {
         created_date = in.readString();
         modified_date = in.readString();
         username = in.readString();
+        lokasi = in.readString();
+        judul = in.readString();
+        foto = in.readString();
     }
 
     @Override
@@ -28,6 +34,9 @@ public class Post implements Parcelable {
         dest.writeString(created_date);
         dest.writeString(modified_date);
         dest.writeString(username);
+        dest.writeString(lokasi);
+        dest.writeString(judul);
+        dest.writeString(foto);
     }
 
     @Override
@@ -46,6 +55,30 @@ public class Post implements Parcelable {
             return new Post[size];
         }
     };
+
+    public String getLokasi() {
+        return lokasi;
+    }
+
+    public void setLokasi(String lokasi) {
+        this.lokasi = lokasi;
+    }
+
+    public String getJudul() {
+        return judul;
+    }
+
+    public void setJudul(String judul) {
+        this.judul = judul;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 
     public String getId() {
         return id;

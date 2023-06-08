@@ -7,15 +7,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.util.List;
 
 import ananda.if4b.tulis_aja.databinding.ActivityMainBinding;
@@ -41,7 +47,10 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
 
+
+
         postViewAdapter = new PostViewAdapter();
+
         postViewAdapter.setOnItemLongClickListener(new PostViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int position) {
@@ -102,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void deletePost(String id) {
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.deletePost("dirumahaja", id);
+        Call<ValueNoData> call = api.deletePost(id);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
@@ -112,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if (success == 1) {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-                        getAllPost();
+                        post();
                     } else {
                         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                     }
@@ -130,10 +139,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void getAllPost() {
+    private void post() {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueData<List<Post>>> call = api.getPost("dirumahaja");
+        Call<ValueData<List<Post>>> call = api.getPost();
         call.enqueue(new Callback<ValueData<List<Post>>>() {
             @Override
             public void onResponse(Call<ValueData<List<Post>>> call, Response<ValueData<List<Post>>> response) {
@@ -167,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getAllPost();
+        post();
     }
 
     @Override

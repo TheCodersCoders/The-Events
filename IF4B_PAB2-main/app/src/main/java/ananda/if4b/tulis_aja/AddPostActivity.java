@@ -42,10 +42,10 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-    private void addPost(String username, String content) {
+    private void addPost(String username, String content, String foto, String judul, String lokasi) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.addPost("dirumahaja", username, content);
+        Call<ValueNoData> call = api.addPost( username, content, foto,judul,lokasi);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
