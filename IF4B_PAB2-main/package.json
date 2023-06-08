@@ -1,0 +1,37 @@
+{
+  "name": "lesson-4-tulis-aja-ananda414",
+  "version": "1.0.0",
+  "description": "rest api menggunakan express.js",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MDP-Lesson/lesson-4-tulis-aja-Ananda414.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Ananda Wijaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MDP-Lesson/lesson-4-tulis-aja-Ananda414/issues"
+  },
+  "homepage": "https://github.com/MDP-Lesson/lesson-4-tulis-aja-Ananda414#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.1",
+    "express": "^4.18.2",
+    "joi": "^17.9.2",
+    "moment": "^2.29.4",
+    "mongoose": "^7.2.0",
+    "mongose": "^0.0.2-security",
+    "nodemon": "^2.0.22"
+  }
+}
