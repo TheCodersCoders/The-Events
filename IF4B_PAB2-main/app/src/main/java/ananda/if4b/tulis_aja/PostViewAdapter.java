@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -47,9 +48,7 @@ public class PostViewAdapter extends RecyclerView.Adapter<PostViewAdapter.ViewHo
         holder.postItemBinding.tvContent.setText(post.getContent());
         holder.postItemBinding.tvJudul.setText(post.getJudul());
         holder.postItemBinding.tvLokasi.setText(post.getLokasi());
-        String imageUrl = "https://images.pexels.com/photos/14131911/pexels-photo-14131911.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load";
-        ImageView ivfoto = (ImageView) findView
-        Picasso.with(context).load(EditText.getText().toString).into(imageView);
+        Glide.with(holder.itemView).load(post.getFoto()).into(holder.postItemBinding.ivFoto);
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
