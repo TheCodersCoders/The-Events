@@ -26,6 +26,9 @@ public class AddPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String content = binding.etContent.getText().toString();
+                String judul = binding.etJudul.getText().toString();
+                String foto = binding.etFoto.getText().toString();
+                String lokasi = binding.etLokasi.getText().toString();
 
                 boolean bolehPost = true;
 
@@ -36,7 +39,7 @@ public class AddPostActivity extends AppCompatActivity {
 
                 if (bolehPost) {
                     String username = Utility.getValue(AddPostActivity.this, "xUsername");
-                    addPost(username, content);
+                    addPost(username, content, judul,foto,lokasi);
                 }
             }
         });
