@@ -18,6 +18,9 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Events");
+
+
 
         binding = ActivityAddPostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -38,17 +41,17 @@ public class AddPostActivity extends AppCompatActivity {
                 }
 
                 if (bolehPost) {
-                    String username = Utility.getValue(AddPostActivity.this, "xUsername");
-                    addPost(username, content, judul,foto,lokasi);
+                    String userId = Utility.getValue(AddPostActivity.this, "xUserId");
+                    addPost(userId, content, foto, judul, lokasi);
                 }
             }
         });
     }
 
-    private void addPost(String username, String content, String foto, String judul, String lokasi) {
+    private void addPost(String userId, String content, String foto, String judul, String lokasi) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.addPost( username, content, foto,judul,lokasi);
+        Call<ValueNoData> call = api.addPost(userId, content, foto, judul, lokasi);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {

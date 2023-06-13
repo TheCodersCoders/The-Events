@@ -71,17 +71,19 @@ public class RegisterActivity extends AppCompatActivity {
     private void register(String username, String password) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueData> call = api.register( username, password);
-       call.enqueue(new Callback<ValueData>() {
+        Call<ValueData<User>> call = api.register( username, password);
+       call.enqueue(new Callback<ValueData<User>>() {
            @Override
-           public void onResponse(Call<ValueData> call, Response<ValueData> response) {
+           public void onResponse(Call<ValueData<User>> call, Response<ValueData<User>> response) {
                binding.progressBar.setVisibility(View.GONE);
                if (response.code() == 200) {
                    int success = response.body().getSuccess();
                    String message = response.body().getMessage();
                    if (success == 1) {
                        Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
-                       Utility.setValue(RegisterActivity.this, "xUsername", username);
+
+                       User user = response.body().getData();
+                       Utility.setValue(RegisterActivity.this, "xUserId", user.getId());
                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                        startActivity(intent);
                        finish();
@@ -94,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
            }
 
            @Override
-           public void onFailure(Call<ValueData> call, Throwable t) {
+           public void onFailure(Call<ValueData<User>> call, Throwable t) {
                binding.progressBar.setVisibility(View.GONE);
                System.out.println("Retrofit Error : " + t.getMessage());
                Toast.makeText(RegisterActivity.this, "Retrofit Error" + t.getMessage(), Toast.LENGTH_SHORT).show();
