@@ -19,6 +19,7 @@ public class UpdatePostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Update Events");
 
         binding = ActivityUpdatePostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -30,25 +31,32 @@ public class UpdatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String content = binding.etContent.getText().toString();
+                String judul = binding.etJudul.getText().toString();
+                String foto = binding.etFoto.getText().toString();
+                String lokasi = binding.etLokasi.getText().toString();
 
                 boolean bolehUpdatePost = true;
 
                 if (TextUtils.isEmpty(content)) {
                     bolehUpdatePost = false;
                     binding.etContent.setError("Konten tidak boleh kosong!");
+                    binding.etJudul.setError("Konten tidak boleh kosong!");
+                    binding.etFoto.setError("Konten tidak boleh kosong!");
+                    binding.etLokasi.setError("Konten tidak boleh kosong!");
+
                 }
 
                 if (bolehUpdatePost) {
-                    updatePost(id, content);
+                    updatePost(id, content,foto, judul,lokasi);
                 }
             }
         });
     }
 
-    private void updatePost(String id, String content) {
+    private void updatePost(String id, String content, String foto, String judul, String lokasi) {
         binding.progressBar.setVisibility(View.VISIBLE);
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.updatePost(id, content);
+        Call<ValueNoData> call = api.updatePost(id, content, foto,judul,lokasi);
         call.enqueue(new Callback<ValueNoData>() {
             @Override
             public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {

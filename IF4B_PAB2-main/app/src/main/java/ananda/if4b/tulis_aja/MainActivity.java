@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private List<Post> data;
     private PostViewAdapter postViewAdapter;
+    private MediaPlayer audioBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         postViewAdapter = new PostViewAdapter();
+        audioBackground = MediaPlayer.create(this, R.raw.kuru_kuru);
+        audioBackground.setLooping(true);
+        audioBackground.setVolume(1,1);
+        audioBackground.start();
 
         postViewAdapter.setOnItemLongClickListener(new PostViewAdapter.OnItemLongClickListener() {
             @Override
@@ -112,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void deletePost(String id) {
         APIService api = Utility.getRetrofit().create(APIService.class);
-        Call<ValueNoData> call = api.deletePost(id);
-        call.enqueue(new Callback<ValueNoData>() {
+        Call<ValueData> call = api.deletePost(id);
+        call.enqueue(new Callback<ValueData>() {
             @Override
-            public void onResponse(Call<ValueNoData> call, Response<ValueNoData> response) {
+            public void onResponse(Call<ValueData> call, Response<ValueData> response) {
                 if (response.code() == 200) {
                     int success = response.body().getSuccess();
                     String message = response.body().getMessage();
@@ -132,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ValueNoData> call, Throwable t) {
+            public void onFailure(Call<ValueData> call, Throwable t) {
                 System.out.println("Retrofit Error : " + t.getMessage());
                 Toast.makeText(MainActivity.this, "Retrofit Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }

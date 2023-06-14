@@ -18,7 +18,7 @@ public class AddPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle("Events");
+        getSupportActionBar().setTitle("Add Events");
 
 
 
