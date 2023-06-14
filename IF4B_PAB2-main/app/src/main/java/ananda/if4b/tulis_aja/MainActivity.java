@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         audioBackground.setVolume(1,1);
         audioBackground.start();
 
+
+
         postViewAdapter.setOnItemLongClickListener(new PostViewAdapter.OnItemLongClickListener() {
             @Override
             public void onItemLongClick(View v, int position) {
@@ -184,6 +186,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         post();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        audioBackground.release();
+
     }
 
     @Override
